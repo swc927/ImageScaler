@@ -14,26 +14,41 @@
 
   <header class="app-header">
     <h1>Image Scaler <span class="by">by SWC</span></h1>
-    <p class="subtitle">Resize compress and convert images right in your browser</p>
+    <p class="subtitle">
+      Resize, compress and convert images directly in your browser
+    </p>
   </header>
 
   <main class="container">
+    <!-- Dropzone and image navigation -->
     <section class="panel dropzone" id="dropzone" tabindex="0" aria-label="Dropzone">
       <input type="file" id="fileInput" accept="image/*" multiple hidden />
       <div class="drop-content">
         <div class="icon">📷</div>
-        <p class="lead">Drop an image here or click to choose</p>
-        <button class="btn" id="chooseBtn">Choose image</button>
-        <p class="hint">No upload needed. Your image stays on your device.</p>
+        <p class="lead">Drop images here or click to choose</p>
+        <button class="btn" id="chooseBtn" type="button">
+          Choose images
+        </button>
+
+        <div id="imageNav">
+          <button id="prevBtn" type="button">Previous</button>
+          <span id="imageIndexLabel"></span>
+          <button id="nextBtn" type="button">Next</button>
+        </div>
+
+        <p class="hint">
+          All processing stays in your browser. Files are never uploaded.
+        </p>
       </div>
     </section>
 
+    <!-- Controls -->
     <section class="panel controls" id="controls" hidden>
       <div class="row">
-        <label>Width</label>
+        <label for="width">Width</label>
         <input type="number" id="width" min="1" step="1" />
-        <span class="x">×</span>
-        <label>Height</label>
+        <span>×</span>
+        <label for="height">Height</label>
         <input type="number" id="height" min="1" step="1" />
         <label class="checkbox">
           <input type="checkbox" id="lockAspect" checked />
@@ -42,36 +57,53 @@
       </div>
 
       <div class="row">
-        <label>Scale</label>
+        <label for="scale">Scale</label>
         <input type="range" id="scale" min="10" max="200" value="100" />
         <output id="scaleOut">100%</output>
       </div>
 
       <div class="row">
-        <label>Format</label>
+        <label for="format">Format</label>
         <select id="format">
           <option value="image/jpeg">JPEG</option>
           <option value="image/png">PNG</option>
           <option value="image/webp">WEBP</option>
         </select>
 
-        <label>Quality</label>
+        <label for="quality">Quality</label>
         <input type="range" id="quality" min="1" max="100" value="90" />
         <output id="qualityOut">90</output>
       </div>
 
       <div class="row actions">
-        <button class="btn secondary" id="resetBtn">Reset</button>
-        <button class="btn primary" id="downloadBtn">Download</button>
+        <button class="btn secondary" id="resetBtn" type="button">
+          Reset
+        </button>
+        <button class="btn primary" id="downloadBtn" type="button">
+          Download current
+        </button>
+        <button class="btn primary" id="downloadAllBtn" type="button">
+          Download all
+        </button>
       </div>
     </section>
 
+    <!-- Preview -->
     <section class="panel preview" id="previewPanel" hidden>
       <canvas id="canvas" aria-label="Preview canvas"></canvas>
       <div class="meta">
-        <div><strong>Original</strong> <span id="origMeta">0 × 0</span></div>
-        <div><strong>Output</strong> <span id="outMeta">0 × 0</span></div>
-        <div><strong>Size estimate</strong> <span id="sizeMeta">0 KB</span></div>
+        <div>
+          <strong>Original</strong>
+          <span id="origMeta">0 × 0</span>
+        </div>
+        <div>
+          <strong>Output</strong>
+          <span id="outMeta">0 × 0</span>
+        </div>
+        <div>
+          <strong>Size estimate</strong>
+          <span id="sizeMeta">0 KB</span>
+        </div>
       </div>
     </section>
   </main>
